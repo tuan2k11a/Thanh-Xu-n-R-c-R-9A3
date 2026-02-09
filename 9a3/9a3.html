@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Xuân Rực Rỡ | Lớp 9A3</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- HỆ THỐNG MÀU SẮC --- */
+        :root {
+            --primary: #ff9a9e;
+            --secondary: #fad0c4;
+            --accent: #a18cd1;
+            --deep-purple: #6c5ce7;
+            --glass: rgba(255, 255, 255, 0.25);
+            --font-hand: 'Dancing Script', cursive;
+            --font-title: 'Pacifico', cursive;
+            --font-body: 'Quicksand', sans-serif;
+            /* motion & timing */
+            --ease-smooth: cubic-bezier(0.2, 0.9, 0.3, 1);
+            --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+            --duration-fast: 250ms;
+            --duration-medium: 600ms;
+            --duration-slow: 1200ms;
+            --card-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            color: #2d3436;
+            overflow-x: hidden;
+        }
+
+        /* --- HIỆU ỨNG HẠT RƠI (HOA ANH ĐÀO, TIM) --- */
+        .particle {
+            position: fixed; top: -10px; z-index: 9999;
+            user-select: none; pointer-events: none;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+        @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+
+        /* --- HERO SECTION (ĐẦU TRANG) --- */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(45, 52, 54, 0.6)), 
+                        url("New folder/sinh nhật cô 2025.jpg") center/cover fixed;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white; position: relative; 
+            overflow: hidden;
+        }
+
+        /* --- BỔ SUNG MŨI TÊN CUỘN XUỐNG --- */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .scroll-down:hover { color: var(--primary); }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-15px);}
+            60% {transform: translateX(-50%) translateY(-7px);}
+        }
+
+        /* Chữ tiêu đề lấp lánh */
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: clamp(4rem, 12vw, 7rem);
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, var(--secondary), #fff, var(--accent));
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+        @keyframes shimmer { to { background-position: 200% center; } }
+
+        .typewriter-container {
+            display: inline-block;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+        .typewriter {
+            font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600;
+            border-right: .15em solid var(--primary);
+            white-space: nowrap; overflow: hidden;
+            margin: 0 auto;
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary); } }
+
+        /* --- SECTION CHUNG --- */
+        section { padding: 100px 5%; position: relative; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 3.5rem; color: var(--accent);
+            position: relative; display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%;
+            width: 0; height: 4px; background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: 0.5s; transform: translateX(-50%);
+        }
+        section:hover .section-title::after { width: 80%; }
+
+        /* --- THÀNH VIÊN (KÍNH MỜ 3D) --- */
+        .members { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px; perspective: 1000px;
+        }
+        .member-card {
+            background: rgba(255, 255, 255, 0.32);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 18px; padding: 18px;
+            transition: transform var(--duration-medium) var(--ease-soft), box-shadow var(--duration-medium) var(--ease-soft), background var(--duration-medium) var(--ease-soft);
+            transform-style: preserve-3d;
+            box-shadow: var(--card-shadow);
+            will-change: transform;
+            position: relative;
+            overflow: hidden;
+        }
+        .member-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+            pointer-events: none;
+            transition: opacity var(--duration-medium) var(--ease-smooth);
+            opacity: 0;
+        }
+        .member-card:hover {
+            transform: translateY(-14px) rotateX(3deg) rotateY(3deg) scale(1.01);
+            background: rgba(255, 255, 255, 0.46);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.22), 0 0 30px rgba(161,140,209,0.08);
+        }
+        .member-card:hover::after { opacity: 1; }
+        .img-box { width: 100%; height: 280px; border-radius: 20px; overflow: hidden; margin-bottom: 15px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-medium) var(--ease-smooth); display:block; }
+        .member-card:hover img { transform: scale(1.1); }
+        .info-box h3 { font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .role-badge {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: bold; display: inline-block; margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* --- GALLERY --- */
+        .gallery-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .polaroid {
+            background: white; padding: 15px 15px 50px 15px;
+            box-shadow: 10px 10px 25px rgba(0,0,0,0.1);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 300px;
+        }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+        .polaroid:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; }
+        .caption { font-family: var(--font-hand); font-size: 2rem; text-align: center; margin-top: 15px; color: var(--accent); }
+
+        /* --- LƯU BÚT HÀNG NGANG --- */
+        .confession {
+            background-image: url('https://www.transparenttextures.com/patterns/cork-board.png');
+            background-color: #d7b299;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .note-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 40px; padding: 60px 20px;
+            scrollbar-width: none;
+        }
+        .note-grid::-webkit-scrollbar { display: none; }
+
+        .sticky-note {
+            flex: 0 0 auto;
+            width: 280px; height: 280px; padding: 30px;
+            background: #ffeb3b; box-shadow: 10px 15px 20px rgba(0,0,0,0.2);
+            font-family: var(--font-hand); font-size: 1.6rem; color: #333;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; cursor: grab;
+        }
+        .sticky-note::after {
+            content: ''; position: absolute; top: -15px; left: 50%;
+            width: 100px; height: 35px; background: rgba(255,255,255,0.5);
+            transform: translateX(-50%) rotate(-2deg);
+        }
+        .sticky-note:hover {
+            transform: scale(1.15) translateY(-20px) rotate(0deg) !important;
+            z-index: 100; box-shadow: 20px 40px 60px rgba(0,0,0,0.3);
+        }
+
+        /* --- GIÁO VIÊN CHỦ NHIỆM (HERO CARD) - MỚI --- */
+        .teacher-hero {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #a18cd1 100%);
+            padding: 80px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teacher-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0,0,0,0.06) 0%, transparent 50%);
+            animation: glow-shift 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes glow-shift { 0%,100%{transform:translate(0)}50%{transform:translate(20px,20px)} }
+
+        .teacher-hero-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .teacher-hero-left { flex: 0 0 auto; }
+        .teacher-hero-right { flex: 1 1 auto; text-align: left; }
+
+        .teacher-hero-img {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid rgba(255,255,255,0.95);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.25), 0 0 60px rgba(255,182,193,0.6);
+            animation: float-hero 4s ease-in-out infinite;
+        }
+
+        .teacher-hero-img img { width:100%; height:100%; object-fit:cover; transition:0.6s; display:block; }
+        .teacher-hero:hover .teacher-hero-img img { transform: scale(1.06); }
+
+        @keyframes float-hero { 0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)} }
+
+        .teacher-hero-name { font-size: 2.6rem; font-weight:700; color:white; margin:0 0 10px; font-family:var(--font-title); text-shadow:2px 2px 8px rgba(0,0,0,0.2); }
+        .teacher-hero-title { font-size:1.1rem; color:rgba(255,255,255,0.95); font-weight:700; margin-bottom:18px; text-transform:uppercase; letter-spacing:1.5px; }
+        .teacher-hero-quote { font-family:var(--font-hand); font-size:1.35rem; color:white; font-style:italic; line-height:1.8; }
+
+        /* make layout responsive: stack on small screens */
+        @media (max-width: 900px) {
+            .teacher-hero-content { flex-direction: column; text-align:center; }
+            .teacher-hero-right { text-align:center; }
+            .teacher-hero-img { width:200px; height:200px; }
+            .teacher-hero-name { font-size:2rem; }
+            .teacher-hero-quote { font-size:1.2rem; }
+        }
+
+        footer { background: #2d3436; color: white; padding: 50px; text-align: center; }
+        #scrollTop {
+            position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px;
+            background: var(--accent); color: white; border-radius: 50%;
+            display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 1000;
+        }
+
+        /* --- HIỆU ỨNG PHÁO HOA --- */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            font-size: 2rem;
+            z-index: 10000;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scrollTop"><i class="fas fa-arrow-up"></i></div>
+
+    <header>
+        <div class="hero-text" data-aos="zoom-in">
+            <h1 class="hero-title">Lớp 9A3 Năm Học 2025-2026</h1>
+            <div class="typewriter-container">
+                <p class="typewriter">Thanh xuân của chúng mình là đẹp nhất...</p>
+            </div>
+        </div>
+
+        <div class="scroll-down" onclick="document.querySelector('.intro').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <section class="intro" data-aos="fade-up">
+        <div class="section-header"><h2 class="section-title">Về Chúng Mình</h2></div>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.2rem;">
+            Chào mừng bạn đến với 35 mảnh ghép đầy màu sắc của 9A3. Nơi đây lưu giữ từng nụ cười, 
+            những buổi chiều rong đuổi và cả những kỷ niệm chẳng thể nào quên.
+        </p>
+    </section>
+
+    <section class="teacher-hero" data-aos="zoom-in">
+        <div class="teacher-hero-content">
+            <div class="teacher-hero-left">
+                <div class="teacher-hero-img"><img src="New folder/tiến.jpg" alt="Cô Đặng Thu Tiến" draggable="false" loading="lazy"></div>
+            </div>
+            <div class="teacher-hero-right">
+                <h2 class="teacher-hero-name">Cô Đặng Thu Tiến</h2>
+                <div class="teacher-hero-title">Giáo viên chủ nhiệm 9A3</div>
+                <p class="teacher-hero-quote">"...."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="members">
+        <div class="section-header">
+            <h2 class="section-title" style="color: white;">Đại Gia Đình 9A3</h2>
+        </div>
+        <div class="member-grid" id="memberGrid"></div>
+    </section>
+
+    <section class="gallery">
+        <div class="section-header"><h2 class="section-title">Góc Kỷ Niệm</h2></div>
+        <div class="gallery-container">
+            <div class="polaroid" data-aos="fade-right"><img src="New folder/ảnh tết.jpg" alt="New folder/ảnh tết.jpg"><div class="caption">Ảnh Tết Tập Thể 9A3</div></div>
+            <div class="polaroid" data-aos="fade-up"><img src="New folder/sinh nhật cô 2025.jpg" alt=""><div class="caption"> Sinh Nhật Cô Đặng Thu Tiến</div></div>
+            <div class="polaroid" data-aos="fade-left"><img src="New folder/giải.jpg" alt=""><div class="caption">Giải Thưởng 09/02/2026</div></div>
+        </div>
+    </section>
+
+    <section class="confession">
+        <div class="section-header">
+            <h2 class="section-title" style="color: white; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">Lời Chúc Nhau</h2>
+            <p style="color: white; margin-top: 10px; opacity: 0.9;">(Kéo sang ngang để xem thêm nội dung)</p>
+        </div>
+        <div class="note-grid">
+            <div class="sticky-note" data-aos="fade-left" style="transform: rotate(-3deg); background: #ffeaa7;">"Chúc 9A3 thi tốt đỗ nguyện vọng 1, mãi nhớ về nhau nhé!"</div>
+            <div class="sticky-note" data-aos="fade-left" data-aos-delay="100" style="transform: rotate(4deg); background: #81ecec;">"Cảm ơn vì đã là một phần thanh xuân của nhau."</div>
+            <div class="sticky-note" data-aos="fade-left" data-aos-delay="200" style="transform: rotate(-5deg); background: #fab1a0;">"chúc tất cả những điều tốt đẹp nhất!"</div>
+            <div class="sticky-note" data-aos="fade-left" data-aos-delay="300" style="transform: rotate(2deg); background: #a29bfe;">"Hẹn nữa họp lớp đủ 35 đứa nhé!"</div>
+            <div class="sticky-note" data-aos="fade-left" data-aos-delay="400" style="transform: rotate(-3deg); background: #fdcb6e;">"Cô Tiến ơi, chúng em thương cô rất nhiều!"</div>
+            <div class="sticky-note" data-aos="fade-left" data-aos-delay="500" style="transform: rotate(4deg); background: #55efc4;">"Mãi là anh em tốt của nhau nhé 9A3!"</div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="font-family: var(--font-title); margin-bottom: 20px;">9A3 Forever</h2>
+        <p>Made with <i class="fas fa-heart fa-beat" style="color: #ff9a9e;"></i> for our memories</p>
+        <p style="font-size: 0.9rem; color: #aaa; margin-top: 10px;">© 2026 Niên khóa 2025-2026</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200, once: false });
+
+        const memberNames = [
+            "Nhật Long", "Nguyễn Vy", "Quốc Kiệt", "Trúc Hà", "Đức Tuấn", 
+            "Thanh Học", "Minh Thảo", "Trịnh Vy", "Thanh Thảo", "Thu Thảo",
+            "Tú Anh", "Gia Khánh", "Kim Cương", "Phương Linh", "Ngọc Ánh",
+            "Bảo Trân", "Diễm Trinh", "Minh Thư", "Khánh Vy", "Nhật linh",
+            "Minh Thuận", "Kim Yến", "Văn Ấm", "Quốc Bảo", "Ngọc Như",
+            "Hồng Nga", "Minh Thùy", "Văn Thành", "Anh Thư", "Văn Bảo",
+            "Tuấn Vĩ", "Đăng Khôi", "Minh Tài", "Quỳnh Như", "Ngọc Hiền"
+        ]; // xong 35 tên thành viên
+
+        const memberPhotos = [
+            "New folder/long.jpg", "New folder/ng vy.jpg", "New folder/kiệt.png", "New folder/hà.jpg", "New folder/tuấn.jpg", "New folder/học.png", "New folder/mthảo.jpg", "New folder/trịnh vy.jpg", "New folder/thanh thảo.jpg", "New folder/thu thảo.jpg",
+            "New folder/tú anh.jpg", "New folder/khánh.jpg", "New folder/cương.png", "New folder/plinh.jpg", "New folder/ánh.jpg", "New folder/trân.png", "New folder/trinh.png", "New folder/minh thư.jpg", "New folder/khanh vy.jpg", "New folder/nhật linh.jpg",
+            "New folder/thuận.jpg", "New folder/yến.png", "New folder/ấm.jpg", "New folder/qbảo.jpg", "New folder/ngọc như.png", "New folder/nga.jpg", "New folder/thùy.jpg", "New folder/thành.jpg", "New folder/anh thư.jpg", "New folder/văn bảo.jpg",
+            "New folder/vĩ.jpg", "New folder/khôi.jpg", "New folder/tài.jpg", "New folder/qnhư.png", "New folder/hiền.png"
+        ];
+
+        const roles = [" lớp phó học tập ", " thành viên ", " tổ trưởng tổ 3 ", " thành viên ", " phó tổ 4 ", " thành viên ", " tổ trưởng tổ 1 ", " thành viên ", " thành viên ", " thành viên ",
+             " thành viên ", " thành viên ", " thành viên ", " tổ trưởng tổ 4 ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " phó lao động ", " thành viên ", " tổ trưởng tổ 2 ", " thành viên ", " lớp trưởng ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ", " thành viên ",
+
+        ];
+        // 35 quotes - mỗi phần tử tương ứng 1 thành viên theo index
+        const quotes = [
+            "Khẩu xà tâm phật", "Thanh xuân rực rỡ", "Học hết mình!", "Cùng nhau tỏa sáng",
+            "Nhớ lớp 9A3", "Năm cuối cấp mắt đỏ hoe <p> Bao kỷ niệm đẹp sao bổng ùa về </p>", "Tuổi trẻ tươi đẹp", "Bạn bè vô giá",
+            "Cảm ơn 9A3", "Luôn tươi cười", "Thanh xuân vô tư", "Yêu thích lớp",
+            "Hy vọng và lạc quan", "Linh iu thưn mấy bạn lắm", "Tươi sáng mỗi ngày", "Bạn bè tốt",
+            "Ước mơ lớn", "Minh Thư cute phô mai que, nhìn là muốn “tan chảy” liền. Ai quen Minh Thư rồi là chỉ có mê thôi!", "Lớp 9A3 #1", "Linh đại ca",
+            "Tuổi học trò", "Ký ức đẹp", "Cùng chia sẻ", "Thắng khó khăn", "Vượt qua mọi thứ",
+            "Bạn ơi", "Nhớ mãi", "Bên cạnh nhau", "mong vẫn được gặp lại thanh xuân đẹp nhất của mình", "Nụ cười",
+            "Thanh niên tươi", "Hy vọng vàng", "Yêu thương", "Kỷ niệm vô tận", "Mãi không quên"
+        ];
+        const grid = document.getElementById('memberGrid');
+
+        memberNames.forEach((name, index) => {
+            const role = (index < roles.length && roles[index] && roles[index].trim() !== "") ? roles[index].trim() : "thành viên";
+            const quote = (index < quotes.length && quotes[index]) ? quotes[index] : "Mãi yêu 9A3!";
+            const photoSrc = memberPhotos[index] !== "" ? memberPhotos[index] : `https://i.pravatar.cc/400?u=${index}`;
+
+            const card = `
+                <div class="member-card" data-aos="fade-up" data-aos-delay="${(index % 5) * 100}" data-index="${index}">
+                    <div class="img-box"><img src="${photoSrc}" alt="${name}" loading="lazy" draggable="false"></div>
+                    <div class="info-box">
+                        <h3>${name}</h3>
+                        <span class="role-badge">${role}</span>
+                        <p class="quote">"${quote}"</p>
+                    </div>
+                </div>`;
+            grid.innerHTML += card;
+        });
+
+        function createParticle() {
+            const parts = ['🌸', '❤️', '✨', '🍂'];
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerText = parts[Math.floor(Math.random() * parts.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = Math.random() * 3 + 4 + 's';
+            p.style.opacity = Math.random();
+            p.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 7000);
+        }
+        setInterval(createParticle, 500);
+
+        // --- NGĂN CHẶN TẢI ẢNH BẰNG CHUỘT PHẢI / KÉO ---
+        (function protectImages(){
+            function protect(img){
+                try{
+                    img.setAttribute('draggable','false');
+                    img.style.userSelect = 'none';
+                    img.style.webkitUserDrag = 'none';
+                    img.addEventListener('contextmenu', e => e.preventDefault());
+                    img.addEventListener('dragstart', e => e.preventDefault());
+                    img.addEventListener('mousedown', e => { if(e.button === 2) e.preventDefault(); });
+                }catch(e){}
+            }
+            // protect existing images now
+            document.querySelectorAll('img').forEach(protect);
+            // protect images added later (e.g. dynamic)
+            const obs = new MutationObserver(muts => {
+                muts.forEach(m => m.addedNodes && m.addedNodes.forEach(n => { if(n && n.querySelectorAll) n.querySelectorAll('img').forEach(protect); if(n && n.tagName === 'IMG') protect(n); }));
+            });
+            obs.observe(document.body, { childList: true, subtree: true });
+        })();
+
+        // --- HEADER PARALLAX (subtle) - OPTIMIZED ---
+        (function uiEnhancements(){
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // header parallax: move background slightly based on pointer
+            const headerEl = document.querySelector('header');
+            if(headerEl && !reduceMotion){
+                let ticking = false;
+                headerEl.addEventListener('pointermove', e => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            const rect = headerEl.getBoundingClientRect();
+                            const x = (e.clientX - rect.left) / rect.width;
+                            const y = (e.clientY - rect.top) / rect.height;
+                            const moveX = (x - 0.5) * 8;
+                            const moveY = (y - 0.5) * 8;
+                            headerEl.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+                headerEl.addEventListener('pointerleave', () => headerEl.style.backgroundPosition = '50% 50%');
+            }
+
+            // particles respect reduced motion
+            if(reduceMotion){
+                document.documentElement.classList.add('reduce-motion');
+            }
+        })();
+
+        const btn = document.getElementById("scrollTop");
+        window.onscroll = () => { btn.style.display = (window.scrollY > 500) ? "flex" : "none"; };
+        btn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // --- HIỆU ỨNG PHÁO HOA KHI BẤM/CHẠM ---
+        function createFireworks(x, y) {
+            const fireworkEmojis = ['✨', '🎆', '🎇', '⭐', '💥', '🌟', '✨', '🎉'];
+            const particleCount = 12;
+
+            for (let i = 0; i < particleCount; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                
+                const emoji = fireworkEmojis[Math.floor(Math.random() * fireworkEmojis.length)];
+                firework.innerText = emoji;
+                
+                // Tính toán hướng và khoảng cách
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 80 + Math.random() * 60;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.setProperty('--tx', tx + 'px');
+                firework.style.setProperty('--ty', ty + 'px');
+                
+                // Random duration 0.8s - 1.2s
+                firework.style.animationDuration = (0.8 + Math.random() * 0.4) + 's';
+                
+                // Random delay nhỏ
+                firework.style.animationDelay = Math.random() * 0.1 + 's';
+                
+                // Thêm filter glow
+                firework.style.filter = 'drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 4px rgba(217, 30, 30, 0.6))';
+                
+                document.body.appendChild(firework);
+                
+                // Xoá element sau khi animation xong
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        // Bắt sự kiện click trên toàn bộ document
+        document.addEventListener('click', (e) => {
+            createFireworks(e.clientX, e.clientY);
+        });
+
+        // Bắt sự kiện touch trên điện thoại
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            createFireworks(touch.clientX, touch.clientY);
+        });
+    </script>
+</body>
+</html>
