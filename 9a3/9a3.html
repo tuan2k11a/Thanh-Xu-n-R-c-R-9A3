@@ -156,15 +156,16 @@
             transition: opacity var(--duration-medium) var(--ease-smooth);
             opacity: 0;
         }
+        /* Keep the 3D zoom effect on hover */
         .member-card:hover {
-            transform: translateY(-14px) rotateX(3deg) rotateY(3deg) scale(1.01);
+            transform: translateY(-18px) rotateX(8deg) rotateY(8deg) scale(1.12);
             background: rgba(255, 255, 255, 0.46);
             box-shadow: 0 30px 70px rgba(0,0,0,0.22), 0 0 30px rgba(161,140,209,0.08);
         }
         .member-card:hover::after { opacity: 1; }
         .img-box { width: 100%; height: 280px; border-radius: 20px; overflow: hidden; margin-bottom: 15px; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-medium) var(--ease-smooth); display:block; }
-        .member-card:hover img { transform: scale(1.1); }
+        .member-card:hover img { transform: scale(1.13) rotateZ(2deg); }
         .info-box h3 { font-weight: 700; color: #fff; margin-bottom: 5px; }
         .role-badge {
             background: linear-gradient(45deg, var(--primary), var(--accent));
@@ -183,10 +184,12 @@
             background: white; padding: 15px 15px 50px 15px;
             box-shadow: 10px 10px 25px rgba(0,0,0,0.1);
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 300px;
+            transform-style: preserve-3d;
         }
         .polaroid:nth-child(even) { transform: rotate(3deg); }
         .polaroid:nth-child(odd) { transform: rotate(-3deg); }
-        .polaroid:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+        /* Keep the 3D zoom effect on hover */
+        .polaroid:hover { transform: scale(1.15) rotateY(8deg) translateZ(100px); z-index: 10; }
         .polaroid img { width: 100%; height: 250px; object-fit: cover; }
         .caption { font-family: var(--font-hand); font-size: 2rem; text-align: center; margin-top: 15px; color: var(--accent); }
 
@@ -566,7 +569,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
